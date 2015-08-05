@@ -11,14 +11,17 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'pg'
 end
 gem 'bootstrap-sass'
 gem 'haml-rails'
-gem 'pg'
+
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'unicorn'
 gem 'unicorn-rails'
+gem 'stripe'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -41,4 +44,8 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+end
+
+group :production do
+  gem 'mysql2'
 end
