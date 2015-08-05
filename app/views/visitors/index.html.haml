@@ -12,16 +12,59 @@
         %hr
         %p Pay Me What You Want allows you to make a card payment to this app's maintainer, #{link_to "OkayDave", "http://github.com/OkayDave", target: "_blank"}. 
         %p This app is open source and #{link_to "available on Github", "https://github.com/OkayDave/pay-me-what-you-want", target: "_blank"}.
-        %hr
+        
 
 %section
   .container
     .row
       .col-md-8.col-md-offset-2
         %h3 Make a payment
-        .payment-form
+        %hr
+        %form#card-form.form-horizontal{action: "", method: :post, stripe_key: ENV["STRIPE_PUBLIC_KEY"]}
+          .row
+            .form-group
+              %label.col-md-3.control-label Cardholder Name
+              .col-md-9 
+                %input.form-control{type: "text", id: "card-name"}
+          .row
+            .form-group
+              %label.col-md-3.control-label Card Number
+              .col-md-9
+                %input.form-control{type: "text", id: "card-number"}
+          .row
+            .form-group
+              %label.col-md-3.control-label Card Expiry
+              .col-md-3
+                %select.form-control#card-expiry-month
+                  -(1..12).each do |month|
+                    %option{value: month}=Date::MONTHNAMES[month]
+              .col-md-3
+                %select.form-control#card-expiry-year
+                  -(2015..2020).each do |year|
+                    %option{value: year}=year
+
+          .row
+            .form-group
+              %label.col-md-3.control-label Card CVV
+              .col-md-3
+                %input.form-control#card-cvv{type: "number"}
+
+          .row
+            .form-group
+              %label.col-md-3.control-label Payment Amount
+              .col-md-9
+                .input-group
+                  %span.input-group-addon &pound;
+                  %input.form-control{type: "number"}
+
+          .row
+            .form-group
+              .col-md-9.col-md-offset-3
+                %button.btn.btn-large.btn-primary{type: "submit"} Make Payment
 
 
-
+%main
+  .container
     .row
-    .col-md-12
+      .col-md-8.col-md-offset-2
+        %h3 Payment History
