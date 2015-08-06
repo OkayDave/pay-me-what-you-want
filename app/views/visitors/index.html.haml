@@ -20,34 +20,37 @@
       .col-md-8.col-md-offset-2
         %h3 Make a payment
         %hr
-        %form#card-form.form-horizontal{action: "", method: :post, stripe_key: ENV["STRIPE_PUBLIC_KEY"]}
+        %form#card-form.form-horizontal{action: "", method: :post, data: {stripekey: ENV["STRIPE_PUBLIC_KEY"]}}
+          .row
+            .col-md-12
+              %p.payment-errors.hidden.alert.alert-danger
           .row
             .form-group
               %label.col-md-3.control-label Cardholder Name
               .col-md-9 
-                %input.form-control{type: "text", id: "card-name"}
+                %input.form-control{type: "text", id: "card-name", data: {stripe: "name"}, required: ""}
           .row
             .form-group
               %label.col-md-3.control-label Card Number
               .col-md-9
-                %input.form-control{type: "text", id: "card-number"}
+                %input.form-control{type: "text", id: "card-number", data: {stripe: "number"}, required: ""}
           .row
             .form-group
               %label.col-md-3.control-label Card Expiry
               .col-md-3
-                %select.form-control#card-expiry-month
+                %select.form-control#card-expiry-month{data: {stripe: "exp-month"}, required: ""}
                   -(1..12).each do |month|
                     %option{value: month}=Date::MONTHNAMES[month]
               .col-md-3
-                %select.form-control#card-expiry-year
+                %select.form-control#card-expiry-year{data: {stripe: "exp-year"}, required: ""}
                   -(2015..2020).each do |year|
                     %option{value: year}=year
 
           .row
             .form-group
-              %label.col-md-3.control-label Card CVV
+              %label.col-md-3.control-label Card CVC
               .col-md-3
-                %input.form-control#card-cvv{type: "number"}
+                %input.form-control#card-cvc{type: "number", data: {stripe: "cvc"}, required: ""}
 
           .row
             .form-group
