@@ -32,3 +32,9 @@ $(document).ready ->
 
       # $form.get(0).submit();
       console.log("lol")
+
+      value = $("#card-value").val()
+
+      $.post("/payments", {token: token, value: value})
+
+      $form.find("button").prop("disabled", false)
