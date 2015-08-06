@@ -1,5 +1,14 @@
 
+google.load('visualization', '1.0', {'packages': ['corechart']})
 $(document).ready ->
+
+  
+
+
+  google.setOnLoadCallback(window.loadChart)
+
+
+
   $("#card-form").submit (e) ->
     e.preventDefault()
     $("p.payment-errors").addClass("hidden")
@@ -13,7 +22,8 @@ $(document).ready ->
 
     return false
 
-  
+  $("#refresh").click ->
+    window.loadChart()
   
   window.stripeResponse = (status, response) ->
     $form = $("#card-form")
@@ -38,3 +48,17 @@ $(document).ready ->
       $.post("/payments", {token: token, value: value})
 
       $form.find("button").prop("disabled", false)
+      $form.reset()
+
+      window.loadChart()
+
+
+  window.loadChart = ->
+    console.log("loadChart") 
+    $.get "/payments", {}, (data, status, xhr) ->
+      console.log(data)
+      if status=="success"
+        cdata = new google.visualization.DataTable()
+        cdata = addColumn('date', 'Date')
+        cdata = addColumn('number', 'Value')
+        
