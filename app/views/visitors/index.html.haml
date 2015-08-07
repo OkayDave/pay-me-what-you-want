@@ -12,7 +12,8 @@
         %hr
         %p Pay Me What You Want allows you to make a card payment to this app's maintainer, #{link_to "OkayDave", "http://github.com/OkayDave", target: "_blank"}. 
         %p This app is open source and #{link_to "available on Github", "https://github.com/OkayDave/pay-me-what-you-want", target: "_blank"}.
-        
+        %hr
+        %p.small This is connected to the 'test' system at #{link_to "Stripe", "http://www.stripe.com", target: "_blank"} so no actual payments will be paid. You don't need to use real credit card information (and you probably shouldn't, the app isn't hooked up to SSL). Go ahead and hit the 'Fill with demo data' button.
 
 %section
   .container
@@ -64,7 +65,7 @@
             .form-group
               .col-md-9.col-md-offset-3
                 %button.btn.btn-large.btn-primary{type: "submit"} Make Payment
-                %button#demo-data-btn.btn.btn-large{type: "button"} Fill wilth demo data
+                %button#demo-data-btn.btn.btn-large{type: "button"} Fill with demo data
 
 
 %main
