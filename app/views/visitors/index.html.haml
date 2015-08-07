@@ -71,10 +71,18 @@
     .row
       .col-md-7.col-md-offset-2
         %h3 Payment History
+        %br
       .col-md-1
         %br
         %span#refresh.glyphicon.glyphicon-refresh.btn.btn-primary
 
     .row
       .col-md-8.col-md-offset-2
-        #graph
+        %table.table.table-bordered.table-striped#payment-table
+          %thead
+            %tr
+              %th
+                Date
+              %th
+                Value
+          %tbody

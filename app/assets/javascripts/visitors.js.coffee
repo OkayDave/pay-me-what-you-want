@@ -1,13 +1,5 @@
 
-google.load('visualization', '1.0', {'packages': ['corechart']})
 $(document).ready ->
-
-  
-
-
-  google.setOnLoadCallback(window.loadChart)
-
-
 
   $("#card-form").submit (e) ->
     e.preventDefault()
@@ -58,17 +50,15 @@ $(document).ready ->
     $.get "/payments", {}, (data, status, xhr) ->
       console.log(data)
       if status=="success"
-        cdata = new google.visualization.DataTable()
-        cdata.addColumn('date', 'Date')
-        cdata.addColumn('number', 'Value')
+        $table = $("#payment-table")
+        $table.find("tbody tr").remove()
 
         for el in data
-          cdata.addRow [data.created_at, data.value] 
+          date = new Date(el[1])
+          date = date.toISOString().slice(0,10)
+          val = el[2]
 
+          row = "<tr><td>"+date+"</td><td>" + val + "</td></tr>"
+          $table.find("tbody").append(row)
 
-        graphOptions = title: "Payments"
-
-        graphContainer = document.getElementById("graph")
-        window.graph = new google.visualization.BarChart(graphContainer)
-        window.graph.draw(cdata, graphOptions)
-      
+  window.loadChart()  
