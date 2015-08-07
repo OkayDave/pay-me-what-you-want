@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
 
   def index
     payments =  []
-    Payment.where("created_at >= ?", 14.days.ago).each do |payment|
+    Payment.order("created_at DESC").where("created_at >= ?", 14.days.ago).each do |payment|
       payments << [payment.id,
       payment.created_at.beginning_of_day.to_i*1000,
       number_to_currency(payment.value/100, unit: "£")]

@@ -16,6 +16,9 @@ $(document).ready ->
 
   $("#refresh").click ->
     window.loadChart()
+
+  $("#demo-data-btn").click ->
+    window.addDemoData()
   
   window.stripeResponse = (status, response) ->
     $form = $("#card-form")
@@ -40,7 +43,7 @@ $(document).ready ->
       $.post("/payments", {token: token, value: value})
 
       $form.find("button").prop("disabled", false)
-      $form.reset()
+      $form[0].reset()
 
       window.loadChart()
 
@@ -60,5 +63,15 @@ $(document).ready ->
 
           row = "<tr><td>"+date+"</td><td>" + val + "</td></tr>"
           $table.find("tbody").append(row)
+
+  window.addDemoData = ->
+    console.log("adding demo data")
+    $form = $("#card-form")
+    $form[0].reset()
+
+    $("#card-name").val("Mr John Doe")
+    $("#card-number").val("4242424242424242")
+    $("#card-expiry-year").val("2018")
+    $("#card-cvc").val("123")
 
   window.loadChart()  
