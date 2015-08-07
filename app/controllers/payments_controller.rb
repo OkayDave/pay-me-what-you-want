@@ -1,5 +1,9 @@
 class PaymentsController < ApplicationController
 
+  def index
+    render json: Payment.select(:created_at, :value, :id)
+  end
+
   def create
     value = params[:value].to_i * 100
     token = params[:token]

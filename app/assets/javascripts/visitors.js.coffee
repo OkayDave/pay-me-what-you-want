@@ -54,11 +54,21 @@ $(document).ready ->
 
 
   window.loadChart = ->
-    console.log("loadChart") 
+    console.log("loadChart")
     $.get "/payments", {}, (data, status, xhr) ->
       console.log(data)
       if status=="success"
         cdata = new google.visualization.DataTable()
-        cdata = addColumn('date', 'Date')
-        cdata = addColumn('number', 'Value')
-        
+        cdata.addColumn('date', 'Date')
+        cdata.addColumn('number', 'Value')
+
+        for el in data
+          cdata.addRow [data.created_at, data.value] 
+
+
+        graphOptions = title: "Payments"
+
+        graphContainer = document.getElementById("graph")
+        window.graph = new google.visualization.BarChart(graphContainer)
+        window.graph.draw(cdata, graphOptions)
+      
